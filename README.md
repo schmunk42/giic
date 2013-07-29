@@ -20,3 +20,7 @@ Run gii via CLI
 > Note: All output files are overwritten by default with
 
     define('GIIC_ALL_CONFIRMED', true);
+
+
+
+> Note: Watch out for XSLT bugs, eg.  Entity: line 134: parser error : EntityRef: expecting ';' / Entity nbsp not defined / ...
