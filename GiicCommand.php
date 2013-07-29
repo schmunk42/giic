@@ -16,13 +16,13 @@ class GiicCommand extends CConsoleCommand
     {
         return <<<EOD
 USAGE
-  yiic gii <message>
+  yiic gii <path-to-giic-config>
 
 DESCRIPTION
-  This command outputs a message
+  This command runs gii on the command line
 
 PARAMETERS
- * message: a string
+ * path-to-giic-config: path alias
 
 EOD;
     }
