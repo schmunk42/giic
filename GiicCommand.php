@@ -8,7 +8,7 @@
  */
 
 Yii::import('system.cli.commands.*');
-class GiiCommand extends CConsoleCommand
+class GiicCommand extends CConsoleCommand
 {
     public $message;
 
@@ -54,7 +54,7 @@ EOD;
         $controller = Yii::createComponent('vendor.phundament.gii-template-collection.fullCrud.FullCrudGenerator', 'fullCrud', $module);
 
         Yii::app()->controller = $controller;
-        $controller->templates = array('slim'=>realpath(dirname(__FILE__).'/../../vendor/phundament/gii-template-collection/fullCrud/templates/slim'));
+        $controller->templates = array('slim'=>realpath(dirname(__FILE__).'/../../phundament/gii-template-collection/fullCrud/templates/slim'));
 
         $controller->run('index');
 

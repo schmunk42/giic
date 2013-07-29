@@ -16,16 +16,16 @@ defined('STDIN') or define('STDIN', fopen('php://stdin', 'r'));
 
 defined('YII_DEBUG') or define('YII_DEBUG',true);
 
-require_once(realpath(dirname(__FILE__).'/../../vendor/yiisoft/yii/framework/yii.php'));
+require_once(realpath(dirname(__FILE__).'/../../yiisoft/yii/framework/yii.php'));
 
-require_once(realpath(dirname(__FILE__).'/GiiConsoleApplication.php'));
-$config=dirname(__FILE__).'/../config/console.php';
+require_once(realpath(dirname(__FILE__).'/GiicApplication.php'));
+$config=dirname(__FILE__).'/../../../app/config/console.php';
 
 
 if(isset($config))
 {
-	$app=Yii::createApplication('GiiConsoleApplication',$config);
-	$app->commandRunner->addCommands(YII_PATH.'/cli/commands');
+	$app=Yii::createApplication('GiicApplication',$config);
+	$app->commandRunner->addCommands(dirname(__FILE__));
 }
 else {
     exit ('no config');
