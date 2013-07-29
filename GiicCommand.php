@@ -38,10 +38,9 @@ EOD;
 
         $_SERVER['REQUEST_URI'] = "console://index.php";
         $_SERVER['SCRIPT_FILENAME'] = $_SERVER['SCRIPT_NAME'] = "index.php";
-        #$_POST[$modelClass];
         $_POST['generate'] = true;
-        $_POST['answers']['10f85536dcdf5602f78471311afd4a1c'] = true;
-        $_POST['answers']['74d0122c38e19d410147d15cf15251c1'] = true;
+        $_POST['answers'] = true;
+        define('GIIC_ALL_CONFIRMED', true);
 
         $_POST['FullCrudCode'] = array(
             'model'=>'vendor.phundament.p3pages.models.P3Page',
