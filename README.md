@@ -23,6 +23,73 @@ Run gii via CLI
 
 > Note: Watch out for XSLT bugs, eg.  Entity: line 134: parser error : EntityRef: expecting ';' / Entity nbsp not defined / ...
     
+
+## giic-config.sample.php
+
+```
+<?php
+
+// select tables
+$tables = array(
+    'actor',
+    'address',
+    'category',
+    'film_text',
+    'inventory',
+    'language',
+    'payment',
+    'rental',
+    'staff',
+    'store',
+    'film',
+    'city',
+    'customer',
+    'country'
+);
+
+// select cruds
+$cruds  = $tables;
+
+$actions = array();
+
+// build actions
+foreach ($tables AS $table) {
+    $actions[] = array(
+        "template" => "FullModel",
+        "generator"=> 'vendor.phundament.gii-template-collection.fullModel.FullModelGenerator',
+        "templates"=> array(
+            'default' => dirname(__FILE__) . '/../../../vendor/phundament/gii-template-collection/fullModel/templates/default',
+        ),
+        "model"    => array(
+            "tableName"  => $table,
+            "modelClass" => ucFirst($table),
+            "modelPath"  => "sakila.models",
+            "template"   => "default"
+        )
+    );
+}
+
+// build actions
+foreach ($cruds AS $crud) {
+    $actions[] = array(
+        "template" => "FullCrud",
+        "generator"=> 'vendor.phundament.gii-template-collection.fullCrud.FullCrudGenerator',
+        "templates"=> array(
+            'slim' => dirname(__FILE__) . '/../../../vendor/phundament/gii-template-collection/fullCrud/templates/slim',
+        ),
+        "model"    => array(
+            "model"      => "sakila.models." . ucfirst($crud),
+            "controller" => $crud,
+            "template"   => "slim"
+        )
+    );
+}
+
+return array(
+    "actions" => $actions
+);
+```
+
     
 ## giic development setup
 
