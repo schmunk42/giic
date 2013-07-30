@@ -34,6 +34,10 @@ EOD;
      */
     public function actionGenerate($args)
     {
+        if (!$this->confirm('Attention! The command may overwrite exisiting files wihtout further notice. Continue?')) {
+            exit;
+        }
+
         // fake input params
         $_SERVER['REQUEST_URI']     = "console://index.php";
         $_SERVER['SCRIPT_FILENAME'] = $_SERVER['SCRIPT_NAME'] = "index.php";
