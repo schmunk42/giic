@@ -62,33 +62,14 @@ EOD;
             // fake input param
             $_POST[$action['template'] . "Code"] = $action['model'];
 
-            // TODO: create controller and assign templates
-            if ($action['template'] == "FullCrud") {
-                $controller            = Yii::createComponent(
-                    'vendor.phundament.gii-template-collection.fullCrud.FullCrudGenerator',
-                    'fullCrud',
-                    $module
-                );
-                $controller->templates = array(
-                    'slim' => realpath(
-                        dirname(__FILE__) . '/../../phundament/gii-template-collection/fullCrud/templates/slim'
-                    ),
-                    'hybrid' => realpath(
-                        dirname(__FILE__) . '/../../phundament/gii-template-collection/fullCrud/templates/hybrid'
-                    )
-                );
-            } else {
-                $controller            = Yii::createComponent(
-                    'vendor.phundament.gii-template-collection.fullModel.FullModelGenerator',
-                    'fullModel',
-                    $module
-                );
-                $controller->templates = array(
-                    'default' => realpath(
-                        dirname(__FILE__) . '/../../phundament/gii-template-collection/fullModel/templates/default'
-                    )
-                );
-            }
+            // create generator
+            $controller            = Yii::createComponent(
+                $action['generator'],
+                lcfirst($action['template']),
+                $module
+            );
+            // assign template
+            $controller->templates = $action['templates'];
 
             // message
             echo $action['template'].' - '.substr(implode(', ',$action['model']),0,80);
