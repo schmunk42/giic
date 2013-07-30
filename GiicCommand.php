@@ -34,8 +34,10 @@ EOD;
      */
     public function actionGenerate($args)
     {
-        if (!$this->confirm('Attention! The command may overwrite exisiting files wihtout further notice. Continue?')) {
-            exit;
+        if (!$this->confirm("\nAttention! The command may overwrite exisiting files wihtout further notice.\n\nEnable overwrite all existing files?")) {
+            define('GIIC_ALL_CONFIRMED', false);
+        } else {
+            define('GIIC_ALL_CONFIRMED', true);
         }
 
         // fake input params
@@ -49,8 +51,6 @@ EOD;
         $module           = Yii::createComponent('system.gii.GiiModule', 'gii', null);
         $module->password = false;
 
-        // TODO: temporary confirm for overwriting files
-        define('GIIC_ALL_CONFIRMED', true);
 
         // load config
         $config = require(Yii::getPathOfAlias($args[0]) . "/giic-config.php");
