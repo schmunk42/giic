@@ -14,7 +14,7 @@ Add the alias to `console.php`
 
 Run gii via CLI
 
-    php vendor/schmunk42/giic/giic.php giic generate
+    php vendor/schmunk42/giic/giic.php giic generate config.folder.alias
 
 
 > Note: All output files are overwritten by default with
