@@ -9,6 +9,8 @@ How does it work?
 > "Currently it's not possible and, I'm afraid, will not be possible during all your prototyping stage. "
 [Samdark](http://www.yiiframework.com/forum/index.php/topic/11146-gii-functionality-from-command-line/page__view__findpost__p__54687)
 
+**But we made it work!**
+
 Giic wraps the Generator and Gii-module in a `GiicApplication`, which is *funky mixture* of `CConsoleApplication` and `CWebApplication`.
 
 You can use a custom config file to specify your input parameters. Every `action` corresponds to a click on the **Generate** button in the web-frontend. Just specify the model attributes as you'd have done in the web application. For more details follow the link in the 'Confiugration' section.
