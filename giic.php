@@ -21,6 +21,14 @@ require_once(realpath(dirname(__FILE__).'/../../yiisoft/yii/framework/yii.php'))
 require_once(realpath(dirname(__FILE__).'/GiicApplication.php'));
 $config=dirname(__FILE__).'/../../../app/config/console.php';
 
+echo "Welcome to 
+       _ _      
+  __ _(_|_) ___ 
+ / _` | | |/ __|
+| (_| | | | (__ 
+ \__, |_|_|\___|
+ |___/    
+The Gii command line toolset\n";
 
 if(isset($config))
 {
