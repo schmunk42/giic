@@ -116,7 +116,8 @@ Setup database
 Generate all models and CRUDs
     
     php vendor/schmunk42/giic/giic.php giic generate vendor.schmunk42.yii-sakila-crud
-    
+
+Your logs should look similar to [this](https://gist.github.com/schmunk42/6124928).
     
 ### console-local.php
 
