@@ -85,8 +85,11 @@ EOD;
             $controller->run('index');
             $html = ob_get_clean();
 
-            // sanitize
-            $html = str_replace("&nbsp;","",$html); // XSLT hotfix
+            // TODO: tidy
+            // sanitize, XSLT hotfix
+            $html = str_replace("&nbsp;","",$html);
+            $html = str_replace('png">','png"/>',$html);
+
 
             // parse for console output
             $xslt = new XSLTProcessor();
