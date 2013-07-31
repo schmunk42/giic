@@ -25,6 +25,7 @@ Add your Gii generator aliases to `console.php`
 
     'gii-template-collection' => 'vendor.phundament.gii-template-collection',
 
+
 Usage
 -----
 
@@ -35,11 +36,13 @@ Because Yii can only create `CConsoleApplication`s we've use the supplied CLI en
 Glitches
 --------
 
-> Note: All output files are overwritten by default with
+* All output files are overwritten by default with
 
     define('GIIC_ALL_CONFIRMED', true);
 
-> Note: Watch out for XSLT bugs, eg.  Entity: line 134: parser error : EntityRef: expecting ';' / Entity nbsp not defined / ...
+* Watch out for XSLT bugs, eg.  Entity: line 134: parser error : EntityRef: expecting ';' / Entity nbsp not defined / ...
+* If you don't get any errors or output, check your generator templates in your browser in gii
+
 
 
 Examples
