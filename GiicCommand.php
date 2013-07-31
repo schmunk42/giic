@@ -94,7 +94,7 @@ EOD;
             // parse for console output
             $xslt = new XSLTProcessor();
             $xslt->importStylesheet(new SimpleXMLElement(file_get_contents(dirname(__FILE__).'/giic.xsl')));
-            file_put_contents(dirname(__FILE__).'/giic.html', $html);
+            file_put_contents(dirname(__FILE__).'/giic.html.log', $html);
             echo $xslt->transformToXml(new SimpleXMLElement($html));
             
             // TODO: add $html output with --verbose    
