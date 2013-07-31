@@ -1,13 +1,20 @@
 giic
 ====
 
-This package provides a toolset for running Gii on the command line.
+This package provides a toolset for running Gii on the command line. It runs an unlimited number of pre-configured Gii Generator templates.
 
-Giic wraps the Gii module in a `GiicApplication`, which is *hacky-mixture* of `CConsoleApplication` and `CWebApplication`.
+How does it work?
+-----------------
 
-You can use a custom config file to specify your input parameters. Every `action` corresponds to a click on the **Generate** button in the web-frontend.
+> "Currently it's not possible and, I'm afraid, will not be possible during all your prototyping stage. "
+[Samdark](http://www.yiiframework.com/forum/index.php/topic/11146-gii-functionality-from-command-line/page__view__findpost__p__54687)
 
-> Note! This code is experimental, please **make a backup** before using it in a project.
+Giic wraps the Generator and Gii-module in a `GiicApplication`, which is *funky mixture* of `CConsoleApplication` and `CWebApplication`.
+
+You can use a custom config file to specify your input parameters. Every `action` corresponds to a click on the **Generate** button in the web-frontend. Just specify the model attributes as you'd have done in the web application. For more details follow the link in the 'Confiugration' section.
+
+> Note! This code is experimental, please **make a backup** before using it in a project. If you find an issue, please report it [here](https://github.com/schmunk42/giic/issues).
+
 
 
 Installation
@@ -26,12 +33,31 @@ Add your Gii generator aliases to `console.php`
     'gii-template-collection' => 'vendor.phundament.gii-template-collection',
 
 
+Configuration
+-------------
+
+For a test-drive, install [schmunk42/yii-sakila-crud](https://github.com/schmunk42/yii-sakila-crud) which provides migrations and configurations for the MySQL demo database "Sakila".
+
+### "The big one"
+
+#### 2 types of models (gtc & giix) and 4 types of CRUDs into 5 locations
+
+[See the Sakila Configuration](https://github.com/schmunk42/yii-sakila-crud/blob/master/giic-config.php)
+
+
 Usage
 -----
 
 Because Yii can only create `CConsoleApplication`s we've use the supplied CLI entry-script. 
 
     php vendor/schmunk42/giic/giic.php giic generate config.folder.alias
+
+Troubleshooting
+---------------
+
+* Watch out for XSLT bugs, eg.  Entity: line 134: parser error : EntityRef: expecting ';' / Entity nbsp not defined / ...
+* If you don't get any errors or output, check your generator templates in your browser in gii
+* Set file permission to `777` in `/app/runtime/gii-1.1.13`
 
 Glitches
 --------
@@ -40,84 +66,30 @@ Glitches
 
     define('GIIC_ALL_CONFIRMED', true);
 
-* Watch out for XSLT bugs, eg.  Entity: line 134: parser error : EntityRef: expecting ';' / Entity nbsp not defined / ...
-* If you don't get any errors or output, check your generator templates in your browser in gii
+Add this to your code model:
 
+    public function confirmed($file)
+    {
+        if (defined('GIIC_ALL_CONFIRMED') && GIIC_ALL_CONFIRMED === true) {
+            return true;
+        } else {
+            return parent::confirmed($file);
+        }
+    }
 
+>Note: You'll have patch exisiting extensions like eg. `giix`
 
-Examples
---------
+Tested Generators
+---------------------
 
-For a test-drive, install [schmunk42/yii-sakila-crud](https://github.com/schmunk42/yii-sakila-crud) which provides migrations and configurations for the MySQL demo database "Sakila".
+* gii-template-collection (models and cruds)
+* giix (models and cruds)*
 
-## giic-config.sample.php
+\* patch needed
 
-```
-<?php
-
-// select tables
-$tables = array(
-    'actor',
-    'address',
-    'category',
-    'film_text',
-    'inventory',
-    'language',
-    'payment',
-    'rental',
-    'staff',
-    'store',
-    'film',
-    'city',
-    'customer',
-    'country'
-);
-
-// select cruds
-$cruds  = $tables;
-
-$actions = array();
-
-// build actions
-foreach ($tables AS $table) {
-    $actions[] = array(
-        "template" => "FullModel",
-        "generator"=> 'vendor.phundament.gii-template-collection.fullModel.FullModelGenerator',
-        "templates"=> array(
-            'default' => dirname(__FILE__) . '/../../../vendor/phundament/gii-template-collection/fullModel/templates/default',
-        ),
-        "model"    => array(
-            "tableName"  => $table,
-            "modelClass" => ucFirst($table),
-            "modelPath"  => "sakila.models",
-            "template"   => "default"
-        )
-    );
-}
-
-// build actions
-foreach ($cruds AS $crud) {
-    $actions[] = array(
-        "template" => "FullCrud",
-        "generator"=> 'vendor.phundament.gii-template-collection.fullCrud.FullCrudGenerator',
-        "templates"=> array(
-            'slim' => dirname(__FILE__) . '/../../../vendor/phundament/gii-template-collection/fullCrud/templates/slim',
-        ),
-        "model"    => array(
-            "model"      => "sakila.models." . ucfirst($crud),
-            "controller" => $crud,
-            "template"   => "slim"
-        )
-    );
-}
-
-return array(
-    "actions" => $actions
-);
-```
-
+---
     
-## giic development setup
+## Development Setup
 
     git clone -bcrud git@github.com:phundament/app.git app-crud
     composer.phar create-project
