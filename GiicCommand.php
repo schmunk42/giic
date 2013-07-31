@@ -32,6 +32,9 @@ EOD;
      */
     public function actionGenerate($args)
     {
+        //TODO: make available via param --xdebug-trace
+        //xdebug_start_trace('giic');
+
         if (!$this->confirm("\nAttention! The command may overwrite exisiting files wihtout further notice.\n\nEnable overwrite all existing files?")) {
             define('GIIC_ALL_CONFIRMED', false);
         } else {
@@ -89,6 +92,8 @@ EOD;
             $xslt->importStylesheet(new SimpleXMLElement(file_get_contents(dirname(__FILE__).'/giic.xsl')));
             file_put_contents(dirname(__FILE__).'/giic.html', $html);
             echo $xslt->transformToXml(new SimpleXMLElement($html));
+            
+            // TODO: add $html output with --verbose    
         }
     }
 }
