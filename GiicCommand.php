@@ -61,19 +61,20 @@ EOD;
         foreach ($config['actions'] AS $action) {
 
             // fake input param
-            $_POST[$action['template'] . "Code"] = $action['model'];
+            $_POST[$action['codeModel']] = $action['model'];
 
             // create generator
             $controller            = Yii::createComponent(
                 $action['generator'],
-                lcfirst($action['template']),
+                lcfirst($action['codeModel']),
                 $module
             );
             // assign template
             $controller->templates = $action['templates'];
 
+
             // message
-            echo $action['template'].' - '.substr(implode(', ',$action['model']),0,80);
+            echo $action['codeModel'].' - '.substr(implode(', ',$action['model']),0,80);
             echo "\n\n";
 
             // assign controller to application
