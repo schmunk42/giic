@@ -14,5 +14,9 @@
     <xsl:copy-of select="."/>
 </xsl:template>
 
+    <xsl:template match="x:div[@class='errorMessage']">
+        <xsl:copy-of select="."/>
+    </xsl:template>
+
 <xsl:template match="text()"/>
 </xsl:stylesheet>
