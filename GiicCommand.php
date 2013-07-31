@@ -10,8 +10,6 @@
 Yii::import('system.cli.commands.*');
 class GiicCommand extends CConsoleCommand
 {
-    public $message;
-
     public function getHelp()
     {
         return <<<EOD
