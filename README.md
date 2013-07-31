@@ -1,28 +1,51 @@
 giic
 ====
 
-**Warning: This repos contains heavily WIP code!**
+This package provides a toolset for running Gii on the command line.
+
+Giic wraps the Gii module in a `GiicApplication`, which is *hacky-mixture* of `CConsoleApplication` and `CWebApplication`.
+
+You can use a custom config file to specify your input parameters. Every `action` corresponds to a click on the **Generate** button in the web-frontend.
+
+> Note! This code is experimental, please **make a backup** before using it in a project.
 
 
-Install via `composer`
+Installation
+------------
+
+### via composer
+
+`composer.phar require schmunk42/giic`
 
 
-Add the alias to `console.php`
+Setup
+-----
 
-    'gii-template-collection'              => 'vendor.phundament.gii-template-collection', // TODO
+Add your Gii generator aliases to `console.php`
 
+    'gii-template-collection' => 'vendor.phundament.gii-template-collection',
 
-Run gii via CLI
+Usage
+-----
+
+Because Yii can only create `CConsoleApplication`s we've use the supplied CLI entry-script. 
 
     php vendor/schmunk42/giic/giic.php giic generate config.folder.alias
 
+Glitches
+--------
 
 > Note: All output files are overwritten by default with
 
     define('GIIC_ALL_CONFIRMED', true);
 
 > Note: Watch out for XSLT bugs, eg.  Entity: line 134: parser error : EntityRef: expecting ';' / Entity nbsp not defined / ...
-    
+
+
+Examples
+--------
+
+For a test-drive, install [schmunk42/yii-sakila-crud](https://github.com/schmunk42/yii-sakila-crud) which provides migrations and configurations for the MySQL demo database "Sakila".
 
 ## giic-config.sample.php
 
@@ -101,7 +124,7 @@ return array(
 
 > Add sakila migrations to `console-local.php`
 
-    'sakila'               => 'vendor.schmunk42.yii-sakila-crud.migrations',
+    'sakila' => 'vendor.schmunk42.yii-sakila-crud.migrations',
 
 > Add sakila module to `main-local.php`
 
@@ -111,10 +134,11 @@ return array(
         )
     )
 
+Setup database
+
     app/yiic migrate
-    
-    php vendor/schmunk42/giic/giic.php giic generate
-    
+
+Generate all models and CRUDs
     
     php vendor/schmunk42/giic/giic.php giic generate vendor.schmunk42.yii-sakila-crud
     
