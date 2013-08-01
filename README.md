@@ -111,7 +111,7 @@ Run thw following command to invoke the set configured actions:
 
 Your console output should look similar to [this](https://gist.github.com/schmunk42/6124928).
 
-Open http://localhos/app-crud-test/www/index.php?r=sakila to checkout your CRUDs.
+Open http://localhos/app-crud-test/www/index.php?r=sakila to checkout your CRUDs. Login with `admin` / `admin`.
 
 #### Bonus: giix
 
