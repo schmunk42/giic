@@ -60,7 +60,7 @@ Install a development(!) version Phundament and the demo extension:
 
     composer.phar create-project -sdev phundament/app app-crud-test
     cd app-crud-test
-    composer.phar require schmunk42/yii-sakila-crud
+    composer.phar require schmunk42/yii-sakila-crud:@dev
 
 > Note: Standard gii-template-collection usage is preconfigured in Phundament.
 
