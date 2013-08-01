@@ -62,6 +62,8 @@ Because Yii can only create `CConsoleApplication`s we've use the supplied CLI en
 Troubleshooting
 ---------------
 
+[Issues on GitHub](https://github.com/schmunk42/giic/issues)
+
 * Watch out for XSLT bugs, eg.  Entity: line 134: parser error : EntityRef: expecting ';' / Entity nbsp not defined / ...
 * If you don't get any errors or output, check your generator templates in your browser in gii
 * Set file permission to `777` in `/app/runtime/gii-1.1.13`
@@ -89,10 +91,10 @@ Add this to your code model:
 Tested Generators
 ---------------------
 
-* gii-template-collection (models and cruds)
+* [gii-template-collection](https://github.com/schmunk42/gii-template-collection) (models and cruds)
 * giix (models and cruds)*
 
-\* patch needed
+\* patch from above needed
 
 ---
     
