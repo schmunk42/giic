@@ -6,13 +6,13 @@ This package provides a toolset for running Gii on the command line. It runs an 
 Introduction
 ------------
 
-> I have configured several templates and with Gii I create the code for modules by selecting the templates 
+> "I have configured several templates and with Gii I create the code for modules by selecting the templates 
 > that is associated with the DB-table. It is working great and saves me lots of time. If I can bash-script or 
-> php-script it, it would be awesome.
+> php-script it, it would be awesome."
 
 > "Currently it's not possible and, I'm afraid, will not be possible during all your prototyping stage. "
 
-> [unixjunky and Samdark](http://www.yiiframework.com/forum/index.php/topic/11146-gii-functionality-from-command-line/page__view__findpost__p__54687), 2010
+[unixjunky and Samdark](http://www.yiiframework.com/forum/index.php/topic/11146-gii-functionality-from-command-line/page__view__findpost__p__54687), 2010
 
 **But we made it work!**
 
@@ -25,7 +25,7 @@ and `CWebApplication`.
 You can use a custom [config file](https://github.com/schmunk42/yii-sakila-crud/blob/master/giic-config.php) to specify 
 your input parameters. Every `action` corresponds to a click on the **Generate** button in the web-frontend. Just specify the model attributes as you'd have done in the web application. For more details follow the link in the 'Confiugration' section.
 
-> Note! This code is experimental, please **make a backup** before using it in a project. If you find an issue, please report it [here](https://github.com/schmunk42/giic/issues).
+> Note: This code is experimental, please **make a backup** before using it in a project. If you find an issue, please report it [here](https://github.com/schmunk42/giic/issues).
 
 Resources
 ---------
@@ -62,7 +62,7 @@ Install a development(!) version Phundament and the demo extension:
     cd app-crud-test
     composer.phar require schmunk42/yii-sakila-crud:@dev
 
-> Note: Standard gii-template-collection usage is preconfigured in Phundament.
+> Hint: Standard gii-template-collection usage is preconfigured in Phundament.
 
 Add sakila migrations to `app/config/console-local.php`:
 
@@ -161,4 +161,3 @@ Patch your code model (`GiixModelCode`, `GiixCrudCode`), override this method:
 * giix (models and cruds)*
 
 \* patch from above needed
-
