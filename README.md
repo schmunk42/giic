@@ -29,7 +29,7 @@ Installation
 
 ### via composer
 
-`composer.phar require schmunk42/giic`
+    composer.phar require schmunk42/giic
 
 
 Setup
@@ -40,34 +40,37 @@ Add your Gii generator aliases to `console.php`
     'gii-template-collection' => 'vendor.phundament.gii-template-collection',
 
 
-Configuration
--------------
+Usage
+-----
 
-For a test-drive, install [schmunk42/yii-sakila-crud](https://github.com/schmunk42/yii-sakila-crud) which provides migrations and configurations for the MySQL demo database "Sakila".
+For a test-drive, install Phundament and [schmunk42/yii-sakila-crud](https://github.com/schmunk42/yii-sakila-crud) which provides migrations and configurations for the MySQL demo database "Sakila".
 
-### "The big one"
+    composer.phar create-project phundament/app app-crud-test
+    composer.phar require schmunk42/yii-sakila-crud
 
-#### 2 types of models (gtc & giix) and 4 types of CRUDs into 5 locations
+Update you application db component (MySQL)
+
+    app/yiic migrate
+
+Because Yii can only create `CConsoleApplication`s we have to use the supplied CLI entry-script. 
+
+    php vendor/schmunk42/giic/giic.php giic generate config.folder.alias
+
+### Configuration
+
+#### "The big one" - 2 types of models (gtc & giix) and 4 types of CRUDs into 5 locations
 
 [See the Sakila Configuration](https://github.com/schmunk42/yii-sakila-crud/blob/master/giic-config.php)
 
 
-Usage
------
-
-Because Yii can only create `CConsoleApplication`s we've use the supplied CLI entry-script. 
-
-    php vendor/schmunk42/giic/giic.php giic generate config.folder.alias
-
-Troubleshooting
----------------
+### Troubleshooting
 
 * Watch out for XSLT bugs, eg.  Entity: line 134: parser error : EntityRef: expecting ';' / Entity nbsp not defined / ...
 * If you don't get any errors or output, check your generator templates in your browser in gii
 * Set file permission to `777` in `/app/runtime/gii-1.1.13`
+* run `composer.phar update` to get the latest packages
 
-Glitches
---------
+### Glitches
 
 * All output files are overwritten by default with
 
@@ -86,8 +89,7 @@ Patch your code model (`GiixModelCode`, `GiixCrudCode`), override this method:
 
 >Note: You'll have patch exisiting extensions like eg. `giix`
 
-Tested Generators
----------------------
+### Tested Generators
 
 * [gii-template-collection](https://github.com/schmunk42/gii-template-collection) (models and cruds)
 * giix (models and cruds)*
@@ -96,13 +98,8 @@ Tested Generators
 
 ---
     
-## Development Setup
-
-    git clone -bcrud git@github.com:phundament/app.git app-crud
-    composer.phar create-project
-    composer.phar update
-
-> Update db component (MySQL)
+Development Setup
+-----------------
 
 > Add sakila migrations to `console-local.php`
 
@@ -116,28 +113,11 @@ Tested Generators
         )
     )
 
-Setup database
-
-    app/yiic migrate
-
-Generate all models and CRUDs
-    
-    php vendor/schmunk42/giic/giic.php giic generate vendor.schmunk42.yii-sakila-crud
-
 Your logs should look similar to [this](https://gist.github.com/schmunk42/6124928).
     
 ### console-local.php
 
 ```
-<?php
-
-/**
- * Phundament 3 Console Config File
- * Containes predefined yiic console commands for Phundament.
- * Define composer hooks by the following name schema: <vendor>/<packageName>-<action>
- */
-
-// for testing purposes
 return array(
     'import' => array(
         'vendor.phundament.gii-template-collection.components.*'
@@ -149,7 +129,6 @@ return array(
         'migrate' => array(
             // enable eg. data migrations for your local machine
             'modulePaths' => array(
-                'app-demo-data'        => 'vendor.waalzer.app-demo-data.migrations',
                 'sakila'               => 'vendor.schmunk42.yii-sakila-crud.migrations',
             ),
         ),
@@ -160,17 +139,6 @@ return array(
 ### main-local.php
 
 ```
-<?php
-
-// Use this file as local.php to override settings only on your local machine
-//
-// DO NOT COMMIT THIS FILE !!!
-
-// include 'development' or 'production'
-$environmentConfigFile = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'main-development.php';
-
-
-$localConfig = array(
     'components' => array(
         'db' => array(
             'tablePrefix'      => '',
@@ -187,13 +155,4 @@ $localConfig = array(
             'class' => 'vendor.schmunk42.yii-sakila-crud.SakilaModule'
         )
     )
-);
-
-// merge configs in the following order (most to least important) local, {env}, main
-if (is_file($environmentConfigFile)) {
-    return CMap::mergeArray(require($environmentConfigFile), $localConfig);
-} else {
-    return $localConfig;
-}
-```    
-
+```
