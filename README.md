@@ -111,6 +111,11 @@ Run thw following command to invoke the set configured actions:
 
 Your console output should look similar to [this](https://gist.github.com/schmunk42/6124928).
 
+#### Bonus: giix
+
+The config file also looks for giix generators in `application.extensions.giix`, you may download giix and place
+it into extensions.
+
 
 
 ### Configuration
