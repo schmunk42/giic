@@ -40,9 +40,9 @@ Setup
 -----
 
 Giic can be installed in any application, but to get a better impression how it works, we'll guide you through a sample
-setup with an Yii extension which creates CRUDs for the MySQL demo database Sakila.
+setup with an Yii extension which features CRUDs for the MySQL demo database Sakila.
 
-For the test-drive, we'll install Phundament together with the Sakila Demo module  [schmunk42/yii-sakila-crud](https://github.com/schmunk42/yii-sakila-crud) 
+For the test-drive, we'll install [Phundament](http://phundament.com) together with the Sakila Demo module  [schmunk42/yii-sakila-crud](https://github.com/schmunk42/yii-sakila-crud) 
 This module provides migrations and configurations for the MySQL demo database "Sakila" to use with giic.
 It also includes the generated CRUDs to play around with.
 
