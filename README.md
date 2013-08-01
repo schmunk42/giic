@@ -52,7 +52,7 @@ Install Phundament and the demo extension:
     cd app-crud-test
     composer.phar require schmunk42/yii-sakila-crud
 
-Add sakila migrations to `console-local.php`:
+Add sakila migrations to `app/config/console-local.php`:
 
     'import' => array(
         'vendor.phundament.gii-template-collection.components.*'
@@ -72,7 +72,7 @@ Add sakila migrations to `console-local.php`:
     'gii-template-collection' => 'vendor.phundament.gii-template-collection',
     
 
-Add sakila module and MySQL database to `main-local.php`:
+Add sakila module and MySQL database to `app/config/main-local.php`:
 
     'modules' => array(
         'sakila' => array(
