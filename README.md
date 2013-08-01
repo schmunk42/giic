@@ -49,6 +49,7 @@ It also includes the generated CRUDs to play around with.
 Install Phundament and the demo extension:
 
     composer.phar create-project phundament/app app-crud-test
+    cd app-crud-test
     composer.phar require schmunk42/yii-sakila-crud
 
 Add sakila migrations to `console-local.php`:
