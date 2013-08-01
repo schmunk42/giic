@@ -17,7 +17,12 @@ You can use a custom config file to specify your input parameters. Every `action
 
 > Note! This code is experimental, please **make a backup** before using it in a project. If you find an issue, please report it [here](https://github.com/schmunk42/giic/issues).
 
+Resources
+---------
 
+* [Yii Framework Extension](http://www.yiiframework.com/extension/giic)
+* [GitHub Project](https://github.com/schmunk42/giic)
+* [Phundament](http://phundament.com) Package
 
 Installation
 ------------
