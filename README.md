@@ -31,89 +31,95 @@ Installation
 
     composer.phar require schmunk42/giic
 
+Usage
+-----
+
+    php vendor/schmunk42/giic/giic.php giic generate alias.to.giic-config
 
 Setup
 -----
 
-Add your Gii generator aliases to `console.php`
+Giic can be installed in any application, but to get a better impression how it works, we'll guide you through a sample
+setup with an Yii extension which creates CRUDs for the MySQL demo database Sakila.
 
-    'gii-template-collection' => 'vendor.phundament.gii-template-collection',
+For the test-drive, we'll install Phundament together with the Sakila Demo module  [schmunk42/yii-sakila-crud](https://github.com/schmunk42/yii-sakila-crud) 
+This module provides migrations and configurations for the MySQL demo database "Sakila" to use with giic.
+It also includes the generated CRUDs to play around with.
 
-
-Usage
------
-
-For a test-drive, install Phundament and [schmunk42/yii-sakila-crud](https://github.com/schmunk42/yii-sakila-crud) which provides migrations and configurations for the MySQL demo database "Sakila".
+Install Phundament and the demo extension:
 
     composer.phar create-project phundament/app app-crud-test
     composer.phar require schmunk42/yii-sakila-crud
 
-Update you application db component (MySQL)
+Add sakila migrations to `console-local.php`:
 
-    app/yiic migrate
-
-Because Yii can only create `CConsoleApplication`s we have to use the supplied CLI entry-script. 
-
-    php vendor/schmunk42/giic/giic.php giic generate config.folder.alias
-
-### Configuration
-
-#### "The big one" - 2 types of models (gtc & giix) and 4 types of CRUDs into 5 locations
-
-[See the Sakila Configuration](https://github.com/schmunk42/yii-sakila-crud/blob/master/giic-config.php)
-
-
-### Troubleshooting
-
-* Watch out for XSLT bugs, eg.  Entity: line 134: parser error : EntityRef: expecting ';' / Entity nbsp not defined / ...
-* If you don't get any errors or output, check your generator templates in your browser in gii
-* Set file permission to `777` in `/app/runtime/gii-1.1.13`
-* run `composer.phar update` to get the latest packages
-
-### Glitches
-
-* All output files are overwritten by default with
-
-    define('GIIC_ALL_CONFIRMED', true);
-
-Patch your code model (`GiixModelCode`, `GiixCrudCode`), override this method:
-
-    public function confirmed($file)
-    {
-        if (defined('GIIC_ALL_CONFIRMED') && GIIC_ALL_CONFIRMED === true) {
-            return true;
-        } else {
-            return parent::confirmed($file);
-        }
-    }
-
->Note: You'll have patch exisiting extensions like eg. `giix`
-
-### Tested Generators
-
-* [gii-template-collection](https://github.com/schmunk42/gii-template-collection) (models and cruds)
-* giix (models and cruds)*
-
-\* patch from above needed
-
----
+    'import' => array(
+        'vendor.phundament.gii-template-collection.components.*'
+    ),
+    'aliases' => array(
+        'sakila' => 'vendor.schmunk42.yii-sakila-crud.*'
+    ),    
+    'commandMap' => array(
+        'migrate' => array(
+            // enable eg. data migrations for your local machine
+            'modulePaths' => array(
+                'sakila  => 'vendor.schmunk42.yii-sakila-crud.migrations',
+            ),
+        ),
+    ),
     
-Development Setup
------------------
+    'gii-template-collection' => 'vendor.phundament.gii-template-collection',
+    
 
-> Add sakila migrations to `console-local.php`
-
-    'sakila' => 'vendor.schmunk42.yii-sakila-crud.migrations',
-
-> Add sakila module to `main-local.php`
+Add sakila module and MySQL database to `main-local.php`:
 
     'modules' => array(
         'sakila' => array(
             'class' => 'vendor.schmunk42.yii-sakila-crud.SakilaModule'
         )
+    ),
+    'components' => array(
+        'db'            => array(
+            'tablePrefix'      => '',
+            'connectionString' => 'mysql:host=localhost;dbname=giic',
+            'emulatePrepare'   => true,
+            'username' => 'test',
+            'password' => 'test',
+            'charset'  => 'utf8',
+        ),
     )
 
-Your logs should look similar to [this](https://gist.github.com/schmunk42/6124928).
+Run the migrations to setup the database:
+
+    app/yiic migrate
+
+Because Yii can only create `CConsoleApplication`s we have to use the supplied CLI entry-script to create our hybrid application.
+Run thw following command to invoke the set configured actions:
+
+    php vendor/schmunk42/giic/giic.php giic sakila
+
+Your console output should look similar to [this](https://gist.github.com/schmunk42/6124928).
+
+
+
+### Configuration
+
+"The big one" - actions for generating two types of models (gtc & giix) and four types of CRUDs into five different locations.
+
+[See the Sakila Configuration](https://github.com/schmunk42/yii-sakila-crud/blob/master/giic-config.php) checkout the comments 
+for an explanation.
+
+
+
+
+
+-------------
+
+
+Development Setup
+-----------------
+
+
     
 ### console-local.php
 
@@ -156,3 +162,38 @@ return array(
         )
     )
 ```
+
+
+### Troubleshooting
+
+* Watch out for XSLT bugs, eg.  Entity: line 134: parser error : EntityRef: expecting ';' / Entity nbsp not defined / ...
+* If you don't get any errors or output, check your generator templates in your browser in gii
+* Set file permission to `777` in `/app/runtime/gii-1.1.13`
+* run `composer.phar update` to get the latest packages
+
+### Glitches
+
+* All output files are overwritten by default with
+
+    define('GIIC_ALL_CONFIRMED', true);
+
+Patch your code model (`GiixModelCode`, `GiixCrudCode`), override this method:
+
+    public function confirmed($file)
+    {
+        if (defined('GIIC_ALL_CONFIRMED') && GIIC_ALL_CONFIRMED === true) {
+            return true;
+        } else {
+            return parent::confirmed($file);
+        }
+    }
+
+>Note: You'll have patch exisiting extensions like eg. `giix`
+
+### Tested Generators
+
+* [gii-template-collection](https://github.com/schmunk42/gii-template-collection) (models and cruds)
+* giix (models and cruds)*
+
+\* patch from above needed
+
