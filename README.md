@@ -122,59 +122,6 @@ for an explanation.
 
 
 
-
-
--------------
-
-
-Development Setup
------------------
-
-
-    
-### console-local.php
-
-```
-return array(
-    'import' => array(
-        'vendor.phundament.gii-template-collection.components.*'
-    ),
-    'aliases' => array(
-        'sakila' => 'vendor.schmunk42.yii-sakila-crud.*'
-    ),    
-    'commandMap' => array(
-        'migrate' => array(
-            // enable eg. data migrations for your local machine
-            'modulePaths' => array(
-                'sakila'               => 'vendor.schmunk42.yii-sakila-crud.migrations',
-            ),
-        ),
-    ),
-);
-```
-
-### main-local.php
-
-```
-    'components' => array(
-        'db' => array(
-            'tablePrefix'      => '',
-            // MySQL
-            'connectionString' => 'mysql:host=localhost;dbname=p3-crud',
-            'emulatePrepare' => true,
-            'username' => 'test',
-            'password' => 'test',
-            'charset' => 'utf8',
-        ),
-    ),
-    'modules' => array(
-        'sakila' => array(
-            'class' => 'vendor.schmunk42.yii-sakila-crud.SakilaModule'
-        )
-    )
-```
-
-
 ### Troubleshooting
 
 * Watch out for XSLT bugs, eg.  Entity: line 134: parser error : EntityRef: expecting ';' / Entity nbsp not defined / ...
