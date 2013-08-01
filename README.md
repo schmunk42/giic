@@ -56,9 +56,9 @@ For the test-drive, we'll install [Phundament](http://phundament.com) together w
 This module provides migrations and configurations for the MySQL demo database "Sakila" to use with giic.
 It also includes the generated CRUDs to play around with.
 
-Install Phundament and the demo extension:
+Install a development(!) version Phundament and the demo extension:
 
-    composer.phar create-project phundament/app app-crud-test
+    composer.phar create-project -sdev phundament/app app-crud-test
     cd app-crud-test
     composer.phar require schmunk42/yii-sakila-crud
 
