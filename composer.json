@@ -1,7 +1,7 @@
 {
     "name": "schmunk42/giic",
-    "description": "Gii from the CLI",
-    "keywords": ["phundament", "components"],
+    "description": "Toolset for running Gii on the command line",
+    "keywords": ["yii", "gii", "cli"],
     "homepage": "https://github.com/schmunk42/giic",
     "type": "library",
     "license": "BSD-3-Clause",
