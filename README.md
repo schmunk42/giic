@@ -76,7 +76,7 @@ Add sakila migrations to `app/config/console-local.php`:
         'migrate' => array(
             // enable eg. data migrations for your local machine
             'modulePaths' => array(
-                'sakila  => 'vendor.schmunk42.yii-sakila-crud.migrations',
+                'sakila'  => 'vendor.schmunk42.yii-sakila-crud.migrations',
             ),
         ),
     ),
