@@ -105,7 +105,7 @@ Run the migrations to setup the database:
     app/yiic migrate
 
 Because Yii can only create `CConsoleApplication`s we have to use the supplied CLI entry-script to create our hybrid application.
-Run thw following command to invoke the set configured actions:
+Run the following command to invoke the set configured actions:
 
     php vendor/schmunk42/giic/giic.php giic generate sakila
 
@@ -153,7 +153,9 @@ Patch your code model (`GiixModelCode`, `GiixCrudCode`), override this method:
         }
     }
 
->Note: You'll have patch exisiting extensions like eg. `giix`
+>Note: You'll have to patch existing extensions like eg. `giix`
+
+Help is very welcome, send us a [Pull Request](https://github.com/schmunk42/giic/pulls)!
 
 ### Tested Generators
 
