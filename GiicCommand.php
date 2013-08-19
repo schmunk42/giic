@@ -74,7 +74,7 @@ EOD;
 
 
             // message
-            echo $action['codeModel'].' - '.substr(implode(', ',$action['model']),0,80);
+            echo $action['codeModel']."\n".substr(CJSON::encode($action['model']),0,160);
             echo "\n\n";
 
             // assign controller to application
