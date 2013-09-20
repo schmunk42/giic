@@ -16,8 +16,8 @@ defined('STDIN') or define('STDIN', fopen('php://stdin', 'r'));
 
 defined('YII_DEBUG') or define('YII_DEBUG',true);
 
+require_once(realpath(dirname(__FILE__).'/../../autoload.php'));
 require_once(realpath(dirname(__FILE__).'/../../yiisoft/yii/framework/yii.php'));
-
 require_once(realpath(dirname(__FILE__).'/GiicApplication.php'));
 $config=dirname(__FILE__).'/../../../app/config/console.php';
 
