@@ -16,10 +16,18 @@ defined('STDIN') or define('STDIN', fopen('php://stdin', 'r'));
 
 defined('YII_DEBUG') or define('YII_DEBUG',true);
 
+echo $root = realpath(dirname(__FILE__).'/../../..');
+
 require_once(realpath(dirname(__FILE__).'/../../autoload.php'));
 require_once(realpath(dirname(__FILE__).'/../../yiisoft/yii/framework/yii.php'));
 require_once(realpath(dirname(__FILE__).'/GiicApplication.php'));
-$config=dirname(__FILE__).'/../../../app/config/console.php';
+$config=require_once($root.'/app/config/console.php');
+
+// Check for optional local console-local.php configuration file
+if(file_exists($root.'/app/config/console-local.php')) {
+    $consoleLocal    = require($root.'/app/config/console-local.php');
+    $config     = CMap::mergeArray($config, $consoleLocal);
+}
 
 echo "Welcome to 
        _ _      
