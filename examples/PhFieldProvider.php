@@ -39,6 +39,7 @@ class PhFieldProvider extends GtcCodeProvider
             case 'hash':
             case 'mime_type':
             case 'size':
+            case 'p3_widget_id':
                 return "echo \$form->textField(\$model,'{$column->name}',array('disabled'=>'disabled'))";
                 break;
             // media select widget
@@ -72,6 +73,10 @@ class PhFieldProvider extends GtcCodeProvider
             case 'created_at':
             case 'updated_at':
             case 'access_owner':
+            case 'access_read':
+            case 'access_update':
+            case 'access_delete':
+            case 'access_append':
             case 'original_name':
             case 'path':
             case 'hash':
