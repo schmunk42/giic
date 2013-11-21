@@ -160,6 +160,4 @@ Help is very welcome, send us a [Pull Request](https://github.com/schmunk42/giic
 ### Tested Generators
 
 * [gii-template-collection](https://github.com/schmunk42/gii-template-collection) (models and cruds)
-* giix (models and cruds)*
-
-\* patch from above needed
+* giix (models and cruds)
