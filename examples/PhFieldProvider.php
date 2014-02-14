@@ -23,10 +23,13 @@ class PhFieldProvider extends GtcCodeProvider
         }
     }
 
-    public function generateActiveField($model, $column)
+    public function generateActiveField($model, $column, $view = NULL)
     {
         if ($column->autoIncrement) {
             return false;
+        }
+        if ($view == 'search') {
+            return NULL;
         }
         switch ($column->name) {
             // disabled fields
@@ -51,7 +54,27 @@ class PhFieldProvider extends GtcCodeProvider
             case 'info_image_magick_json':
                 return "echo CVarDumper::dumpAsString(CJSON::decode(\$model->{$column->name}), 5, true)";
                 break;
-
+            case 'tree_parent_id':
+                return "\$this->widget(
+                    '\GtcRelation',
+                    array(
+                        'model' => \$model,
+                        'relation' => 'treeParent',
+                        'fields' => 'itemLabel',
+                        'allowEmpty' => true,
+                        'style' => 'dropdownlist',
+                        'htmlOptions' => array(
+                            'checkAll' => 'all'
+                        ),
+                        'criteria' => array(
+                            'condition' => 'access_domain=:lang',
+                            'params'    => array(
+                                ':lang' => Yii::app()->language,
+                            )
+                        )
+                    )
+                )";
+                break;
         }
         if (strstr($column->name, '_json')) {
             return "\$this->widget(
