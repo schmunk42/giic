@@ -6,6 +6,12 @@
 
 class PhFieldProvider extends GtcCodeProvider
 {
+    /**
+     * identifier for the collapse
+     * @var string
+     */
+    private $_collapseId = 'widget_collapse';
+
     public function generateColumn($model, $column)
     {
         switch ($column->name) {
@@ -132,14 +138,14 @@ class PhFieldProvider extends GtcCodeProvider
             return null;
         } elseif ($modelClass == 'vendor.phundament.p3Media.models.P3Media' && $column->name == 'id') {
             $code = "array(
-                        'name' => 'Image',
-                        'type' => 'raw',
+                        'name'  => 'Image',
+                        'type'  => 'raw',
                         'value' => \$model->image('p3media-manager')
                     ),\n";
         } elseif (strtoupper($column->dbType) == 'TEXT') {
             $code = "array(
-                        'name' => '{$column->name}',
-                        'type' => 'raw',
+                        'name'  => '{$column->name}',
+                        'type'  => 'raw',
                         'value' => \$model->{$column->name}
                     ),\n";
         } else {
@@ -150,7 +156,6 @@ class PhFieldProvider extends GtcCodeProvider
 
     public function generateHtml($modelClass, $column, $view = false)
     {
-
         switch ($view) {
             case 'prepend':
                 switch ($column->name) {
@@ -164,7 +169,10 @@ class PhFieldProvider extends GtcCodeProvider
                         return "echo '<h3>B) Weiterleitung</h3>'";
                         break;
                     case 'access_owner':
-                        return "echo '<h3>Access</h3>'";
+                        return $this->openCollapseGroup('collapseThree','Access');
+                        break;
+                    case 'status':
+                        return $this->openCollapseGroup('collapseOne','Daten',true);
                         break;
                     case 'default_url_param':
                         return "echo '<h3>SEO</h3>'";
@@ -175,12 +183,51 @@ class PhFieldProvider extends GtcCodeProvider
                         #return "echo '{$modelClass}{$column->name}{$view}'";
                         break;
                     case 'container_id':
-                        return "echo '<h3>Position</h3>'";
+                        return $this->openCollapseGroup('collapseTwo','Position');
                         #return "echo '{$modelClass}{$column->name}{$view}'";
                         break;
                 }
                 break;
+            case 'append':
+                switch ($column->name) {
+                    case 'updated_at':
+                    case 'session_param':
+                    case 'name_id':
+                    return $this->closeCollapseGroup();
+                }
         }
     }
 
+    /**
+     * open the collpase row
+     * @url http://getbootstrap.com/2.3.2/javascript.html#collapse
+     * @param $id
+     * @return string
+     */
+    private function openCollapseGroup($id,$title,$open = false){
+        $openCssClass = '';
+        if($open)
+            $openCssClass = 'in';
+
+        $code = <<<EOS
+echo '
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#$this->_collapseId" href="#$id">
+        $title
+      </a>
+    </div>
+    <div id="$id" class="accordion-body collapse $openCssClass">
+      <div class="accordion-inner">';
+EOS;
+        return $code;
+    }
+
+    /**
+     * close the collapse row
+     * @return string
+     */
+    private function closeCollapseGroup(){
+        return "echo '</div></div></div>'";
+    }
 }
