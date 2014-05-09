@@ -8,8 +8,24 @@
  */
 
 Yii::import('system.cli.commands.*');
+Yii::import('vendor.schmunk42.giic.ShellColors');
 class GiicCommand extends CConsoleCommand
 {
+    /**
+     * use the ShellColors class
+     * @var class
+     */
+    private $_shellAlert;
+
+    /**
+     * initialize the colors
+     */
+    public function init()
+    {
+        parent::init();
+        $this->_shellAlert = new ShellColors();
+    }
+
     public function getHelp()
     {
         return <<<EOD
@@ -54,8 +70,15 @@ EOD;
 
 
         // load config
-        $config = require(Yii::getPathOfAlias($args[0]) . "/giic-config.php");
-        #var_dump($config);exit;
+        $path = Yii::getPathOfAlias($args[0]) . "/giic-config.php";
+
+
+        if(!is_file($path)){
+            echo $this->_shellAlert->getColoredString("File in {$path} not exist!", "white", "red") . "\n";
+            exit;
+        }
+
+        $config = require($path);
 
         // execute actions (run gii controller action multiple times)
         foreach ($config['actions'] AS $action) {
