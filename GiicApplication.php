@@ -138,7 +138,7 @@ class GiicApplication extends CConsoleApplication
     public function getAssetManager()
     {
         $am = new CAssetManager();//$this->getComponent('widgetFactory');
-        $am->setBasePath('www/assets');
+        $am->setBasePath($this->getBasePath().'/www/assets');
         return $am;
     }
 
